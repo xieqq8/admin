@@ -1,3 +1,13 @@
+server:
+  port: 10000
+  compression:
+    enabled: true
+  connection-timeout: 3000
+
+debug: false
+
+
+
 ##登录记住我的token加密key
 remember:
   key: javajidi_com
@@ -48,4 +58,4 @@ spring:
       cache: false
 
 blog:
-  host: http://localhost:8080
+  host: http://localhost:8686
