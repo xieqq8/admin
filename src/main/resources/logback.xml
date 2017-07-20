@@ -35,7 +35,7 @@
         <appender-ref ref="SQL"/>
     </logger>
     <logger name="org.springframework.web.servlet.mvc" level="info"/>
-    <logger name="org.bumishi.admin.interfaces.blogsite.BlogSiteRestTemplate" level="debug"/>
+    <logger name="com.xxx.admin.interfaces.blogsite.BlogSiteRestTemplate" level="debug"/>
     <root level="WARN">
         <appender-ref ref="STDOUT"/>
     </root>

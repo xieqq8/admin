@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("/tt")
     public @ResponseBody
     String index() {
         return "你好，这是第一个spring boot应用1111";
