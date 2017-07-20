@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>不迷失-Admin 博客站点配置</title>
+    <div th:replace="head"></div>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini ">
+<div class="wrapper">
+
+    <div th:replace="header"></div>
+    <div th:replace="sidebar"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">博客站点配置</h3>
+                        </div>
+                        <!-- /.box-header -->
+
+                        <h2 th:if="${rep!=null &amp;&amp; !rep.success}" th:text="${rep.msg}"></h2>
+                        <!-- form start -->
+                        <form th:if="${rep==null || rep.success}" class="form-horizontal" th:action="@{${api}}"
+                              method="post">
+                            <div class="box-body">
+
+                                <div class="form-group" th:each="item:${rep.data}">
+                                    <label for="inputEmail3" class="col-sm-2 control-label" th:text="${item.key}">名称</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" th:name="${item.key}" th:value="${item.value}"
+                                               class="form-control" id="inputEmail3" placeholder=""
+                                               required="required"/>
+                                    </div>
+                                </div>
+
+
+                                <br/><br/>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer" style="text-align: center;">
+                                <button id="submitBtn" type="submit" class="btn btn-info">Submit</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="footer"></div>
+</div>
+<!-- ./wrapper -->
+<div th:replace="script"></div>
+
+<script th:src="@{/js/jquery.serializejson.min.js}"></script>
+<script th:src="@{/js/ajax-setup.js}"></script>
+<script th:src="@{/js/form-json-submit.js}"></script>
+
+</body>
+</html>

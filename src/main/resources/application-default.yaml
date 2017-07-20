@@ -1,0 +1,59 @@
+
+server:
+  port: 10000
+  compression:
+    enabled: true
+  connection-timeout: 3000
+
+debug: false
+
+##登录记住我的token加密key
+remember:
+  key: javajidi_com
+##actuator config,actuator运行在一个独立的webappcontext中，see AnnotationConfigEmbeddedWebApplicationContext
+management:
+  context-path: /management
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: admin-managee
+    qiniu:
+        access-key: NDx4d9Lr1IYC7ThIFw-s77rCnJJPqdQX5bKl169j
+        securt-key: QIEaT5yrcdaLmBIUhBp2rYkivtWZLFd_u3OFvbt6
+        bucket: bumishi-blog
+        domain: http://ohtnk29z2.bkt.clouddn.com
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/admin_manage?characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+          max-active: 20
+          initial-size: 1
+          min-idle: 3
+          max-wait: 60000
+          time-between-eviction-runs-millis: 60000
+          min-evictable-idle-time-millis: 300000
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+  cache:
+    guava:
+      spec: maximumSize=500,expireAfterAccess=3600s
+
+ #spring-boot-admin config
+  boot:
+    admin:
+    #用于将当前应用注册到Spring Boot Admin
+      url: http://localhost:${server.port}${spring.boot.admin.context-path}
+      context-path: /admin
+  thymeleaf:
+      prefix: classpath:/public/thymeleaf/
+      cache: false
+
+blog:
+  host: http://localhost:8686

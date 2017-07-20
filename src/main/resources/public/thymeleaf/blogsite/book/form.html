@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>不迷失-Admin book编辑</title>
+    <div th:replace="head"></div>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini ">
+<div class="wrapper">
+
+    <div th:replace="header"></div>
+    <div th:replace="sidebar"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">book编辑</h3>
+                        </div>
+                        <!-- /.box-header -->
+
+                        <h2 th:if="${rep!=null &amp;&amp; !rep.success}" th:text="${rep.msg}"></h2>
+                        <!-- form start -->
+                        <form id="dataform" th:if="${rep==null || rep.success}" class="form-horizontal" th:action="@{${api}}"
+                              method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">名称</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" name="name" th:value="${isUpdate}? ${rep.data.name}"
+                                               class="form-control" id="inputEmail3" placeholder=""
+                                               required="required" maxlength="50"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">分类</label>
+
+                                    <div class="col-sm-10">
+                                        <select name="catalog"
+                                                class="form-control" required>
+
+                                            <option th:each="item : ${catalogs}" th:value="${item.id}" th:text="${item.label}" th:selected="${isUpdate}?(${item.id==rep.data.catalog}?'selected')" >java</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">描述</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" name="description"
+                                               th:value="${isUpdate}?(${rep.data.description}?${rep.data.description})"
+                                               class="form-control" id="inputEmail3" placeholder=""
+                                               maxlength="200"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">封面图片</label>
+
+                                    <div class="col-sm-10">
+                                        <input th:if="${isUpdate}" type="file" name="image"/>
+                                        <input th:if="${!isUpdate}" type="file" name="image" required/>
+                                        <input type="hidden" name="img"
+                                               th:value="${isUpdate}?(${rep.data.img}?${rep.data.img})"/>
+                                        <br/>
+                                        <div th:if="${isUpdate and rep.data.img!=null}" style="text-align: center">
+                                             <img th:src="${rep.data.img}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer" style="text-align: center;">
+                                <button id="submitBtn" type="submit" class="btn btn-info">Submit</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="footer"></div>
+</div>
+<!-- ./wrapper -->
+<div th:replace="script"></div>
+
+<script th:src="@{/js/jquery.serializejson.min.js}"></script>
+
+<script th:src="@{/js/jquery.form.js}"></script>
+<script>
+
+    $(document).ready(function () {
+      $("#dataform").ajaxForm({
+          //contentType: 'application/json;charset=utf-8',
+          dataType:'json',
+          success:function (data) {
+              if (data.success){
+                  alert("操作成功");
+              }else{
+                  alert(data.msg);
+              }
+          },
+          error:function (e) {
+              console.log(e);
+              alert("未知错误:"+e);
+          }
+      });
+    });
+</script>
+</body>
+</html>
