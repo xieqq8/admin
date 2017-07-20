@@ -10,6 +10,6 @@ public class HomeController {
     @RequestMapping("/")
     public @ResponseBody
     String index() {
-        return "你好，这是第一个spring boot应用11";
+        return "你好，这是第一个spring boot应用1111";
     }
 }
