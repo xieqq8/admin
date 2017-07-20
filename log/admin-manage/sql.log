@@ -1,3 +1,0 @@
-07/20/2017 15:07:45 DEBUG version_IS_UNDEFINED [localhost-startStop-1]o.s.j.c.JdbcTemplate - Executing SQL query [select * from role]
-07/20/2017 15:12:03 DEBUG version_IS_UNDEFINED [localhost-startStop-1]o.s.j.c.JdbcTemplate - Executing SQL query [select * from role]
-07/20/2017 15:13:25 DEBUG version_IS_UNDEFINED [localhost-startStop-1]o.s.j.c.JdbcTemplate - Executing SQL query [select * from role]

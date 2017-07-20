@@ -1,12 +1,3 @@
-
-server:
-  port: 10000
-  compression:
-    enabled: true
-  connection-timeout: 3000
-
-debug: false
-
 ##登录记住我的token加密key
 remember:
   key: javajidi_com
@@ -45,10 +36,11 @@ spring:
     guava:
       spec: maximumSize=500,expireAfterAccess=3600s
 
- #spring-boot-admin config
+#配置admin-manage的地址，目的是能在admin-manage监控到bumishi-blog的信息
   boot:
     admin:
-    #用于将当前应用注册到Spring Boot Admin
+      #用于将当前应用注册到Spring Boot Admin  //  在Properties中添加配置，用来告诉客户端Admin服务在那一台服务器（域名）上（yml类似）。
+      # spring.boot.admin.url=http://localhost:8080
       url: http://localhost:${server.port}${spring.boot.admin.context-path}
       context-path: /admin
   thymeleaf:
@@ -56,4 +48,4 @@ spring:
       cache: false
 
 blog:
-  host: http://localhost:8686
+  host: http://localhost:8080
