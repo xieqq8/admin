@@ -54,12 +54,18 @@ public class BlogController {
         model.addAttribute("isUpdate",isUpdate);//是否是新增还是修改，简化模板中的判断
         model.addAttribute("api", api);
         model.addAttribute("catalogs",restTemplate.getForObject("/admin/catalog").getData());
+
+//        {"success":true,"code":null,"msg":null,"data":[{"id":"java","label":"Java","path":"0","order":10,"type":0,"style":null,"disabled":false,
+// "childNodes":[],"url":"/catalog/java","level":1},{"id":"spring","label":"spring","path":"0","order":10,"type":1,"style":null,"disabled":false,"childNodes":[],"url":"","level":1}]}
+
         return "blogsite/blog/form";
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
         RestResponse<PageModel> response = restTemplate.getForPageModelResponseObject("/admin/blog?page=" + page);
+//        {"success":true,"code":null,"msg":null,"data":{"page":1,"size":20,"list":null,"hasNext":false}}
+//  list返回null没有处理
         model.addAttribute("rep",response);
         return "blogsite/blog/list";
     }

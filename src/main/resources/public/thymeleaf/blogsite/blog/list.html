@@ -43,25 +43,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item:${rep.data.list}">
-                                    <td th:text="${item.title}">标题</td>
-                                    <td th:text="${item.secondTitle}?${item.secondTitle}">标题</td>
-                                    <td th:text="${item.catalogDisplay}">分类</td>
-                                    <td th:text="${#dates.format(item.publishTime,'yyyy/MM/dd HH:mm')}"></td>
-                                    <td th:text="${item.views}">10</td>
-                                    <td style="text-align: center">
-                                        <a th:href="@{/blogsite/blog/form(id=${item.id})}"><span
-                                                class="glyphicon glyphicon-edit"
-                                                title="编辑"></span></a>
-                                    </td>
+                                <tr:block th:if="${not #lists.isEmpty(rep.data.list)}">
+                                    <tr th:each="item:${rep.data.list}">
+                                        <td th:text="${item.title}">标题</td>
+                                        <td th:text="${item.secondTitle}?${item.secondTitle}">标题</td>
+                                        <td th:text="${item.catalogDisplay}">分类</td>
+                                        <td th:text="${#dates.format(item.publishTime,'yyyy/MM/dd HH:mm')}"></td>
+                                        <td th:text="${item.views}">10</td>
+                                        <td style="text-align: center">
+                                            <a th:href="@{/blogsite/blog/form(id=${item.id})}"><span
+                                                    class="glyphicon glyphicon-edit"
+                                                    title="编辑"></span></a>
+                                        </td>
 
-                                    <td style="text-align: center">
+                                        <td style="text-align: center">
 
                                         <span name="trash" title="删除"
                                               th:data="@{/blogsite/blog/{id}/delete(id=${item.id})}"
                                               style="cursor: pointer" class="glyphicon glyphicon-trash"></span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                </tr:block>
+
                                 </tbody>
                             </table>
                         </div>
