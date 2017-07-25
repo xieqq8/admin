@@ -1,7 +1,7 @@
 package com.xxx.admin.domain.modle;
 
 /**
- * Created by xieqiang on 2016/9/17.
+ * Created by xiexx on 2016/9/17.
  * 菜单
  */
 public class Menu extends TreeModel{

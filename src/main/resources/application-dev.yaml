@@ -46,6 +46,7 @@ spring:
     guava:
       spec: maximumSize=500,expireAfterAccess=3600s
 
+
 #配置admin-manage的地址，目的是能在admin-manage监控到bumishi-blog的信息
   boot:
     admin:
@@ -56,6 +57,7 @@ spring:
   thymeleaf:
       prefix: classpath:/public/thymeleaf/
       cache: false
+      mode: LEGACYHTML5
 
 blog:
   host: http://localhost:8686

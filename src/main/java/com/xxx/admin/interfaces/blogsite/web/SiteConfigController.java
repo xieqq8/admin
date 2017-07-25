@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by xieqiang on 2017/1/4.
+ * Created by xiexx on 2017/1/4.
  */
 @Controller
 @RequestMapping("/blogsite/siteconfig")

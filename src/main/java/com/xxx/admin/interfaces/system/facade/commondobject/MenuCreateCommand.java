@@ -1,7 +1,7 @@
 package com.xxx.admin.interfaces.system.facade.commondobject;
 
 /**
- * Created by xieqiang on 2016/10/30.
+ * Created by xiexx on 2016/10/30.
  */
 public class MenuCreateCommand {
 

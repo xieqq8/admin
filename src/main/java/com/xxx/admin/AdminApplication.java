@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 
 /**
- * Created by xieqiang on 2016/9/11.
+ * Created by xiexx on 2016/9/11.
  */
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableAdminServer

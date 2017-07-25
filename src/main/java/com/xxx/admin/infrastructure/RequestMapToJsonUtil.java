@@ -6,7 +6,7 @@ import org.apache.commons.collections.map.HashedMap;
 import java.util.Map;
 
 /**
- * Created by xieqiang on 2017/1/8.
+ * Created by xiexx on 2017/1/8.
  */
 public class RequestMapToJsonUtil {
 

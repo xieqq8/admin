@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Created by xieqiang on 2016/10/6.
+ * Created by xiexx on 2016/10/6.
  */
 public class SecurityUtil {
 

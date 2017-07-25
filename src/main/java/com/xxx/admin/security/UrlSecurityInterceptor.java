@@ -39,6 +39,9 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
 
     private AntPathMatcher pathMatcher=new AntPathMatcher();
 
+//    1、主要鉴权方法是调用父类中accessDecisionManager的decide值，所以我们需要自己实现一个accessDecisionManager
+//2、父类中存在抽象方法public abstract SecurityMetadataSource obtainSecurityMetadataSource();作用是获取URL及用户角色对应的关系。我们需要加入自己的实现。
+
     @Autowired
     @Override
     public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
@@ -51,7 +54,10 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
         super.setAuthenticationManager(newManager);
     }
 
-
+    /**
+     * 安全拦截器所需的SecurityMetadataSource类型是FilterInvocationSecurityMetadataSource
+     * @param newSource
+     */
     @Autowired
     @Override
     public void setSecurityMetadataSource(FilterInvocationSecurityMetadataSource newSource) {

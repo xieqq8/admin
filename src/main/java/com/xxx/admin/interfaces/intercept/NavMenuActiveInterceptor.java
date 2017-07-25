@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by xieqiang on 2016/11/20.
+ * Created by xiexx on 2016/11/20.
  */
 public class NavMenuActiveInterceptor extends HandlerInterceptorAdapter {
 

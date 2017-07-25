@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by xieqiang on 2016/12/11.
+ * Created by xiexx on 2016/12/11.
  */
 @Configuration
 public class BlogConfig {

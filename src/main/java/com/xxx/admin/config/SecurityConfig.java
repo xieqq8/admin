@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UrlSecurityInterceptor urlSecurityInterceptor() {
-        return new UrlSecurityInterceptor();
+        return new UrlSecurityInterceptor(); //拦截器UrlSecurityInterceptor
     }
 
     @Bean

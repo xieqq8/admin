@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by xieqiang on 2016/10/29.
+ * Created by xiexx on 2016/10/29.
  * id   label   path        level order
  * 1    水果      0           1   1
  * 2    苹果      0,1         2   1

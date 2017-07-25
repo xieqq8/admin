@@ -6,7 +6,7 @@ import com.xxx.admin.interfaces.system.facade.commondobject.MenuCreateCommand;
 import com.xxx.admin.interfaces.system.facade.commondobject.MenuUpdateCommond;
 
 /**
- * Created by xieqiang on 2016/10/30.
+ * Created by xiexx on 2016/10/30.
  */
 public class MenuAssembler {
 
