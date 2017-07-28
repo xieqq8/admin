@@ -31,6 +31,12 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     protected RoleRepository roleRepository;
 
+    /**
+     * 这里可以设置权限????
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepository.findByUserName(username);

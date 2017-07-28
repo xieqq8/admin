@@ -72,22 +72,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return configuration.getAuthenticationManager();
     }
 
+    /**
+     * spring security 学习记录  使用security3以及升级到security4的时候遇到的问题记录下来。
+     * http://blog.csdn.net/levelmini/article/details/54924396
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 跨域 HTTP 请求  禁用后更安全
         http.cors().disable();
+
         http.headers().disable();
+
         http.jee().disable();
+
         http.x509().disable();
+
         http.servletApi().disable();
+
         http.anonymous().disable();
+
         http.requestCache().disable();
+
+        // CSRF是用于防止跨域攻击的，在security3中是默认关闭的，但是在security4中默认开启。开启之后在登陆时候的form中要加一个input放csrf的token  用thymeleaf会自动加上，所以不用写
+        // 这个是配置忽略csrf验证的列表
         http.csrf().ignoringAntMatchers("/upload/*");
+
         http.rememberMe().userDetailsService(userDetailService).key(key).useSecureCookie(false).alwaysRemember(true);
+
         http.addFilterAt(urlSecurityInterceptor(), FilterSecurityInterceptor.class);//处理自定义的权限
+
         //http.authorizeRequests()对应FilterSecurityInterceptor，不配置就不会加入FilterSecurityInterceptor
-        http.formLogin().loginProcessingUrl("/login").loginPage("/to-login").defaultSuccessUrl("/").successHandler(new AuthenticationSuccessHandler());
-        http.logout().logoutSuccessHandler(new LogoutSuccessHandler());
-        http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint()).accessDeniedHandler(new MyAccessDeniedHandler());
+        http.formLogin().
+                loginProcessingUrl("/login").       // 执行登录页
+                loginPage("/to-login").             // 登录页
+                defaultSuccessUrl("/").             // 登录成功页
+                successHandler(new AuthenticationSuccessHandler());
+        http.logout().
+                logoutSuccessHandler(new LogoutSuccessHandler());
+
+        http.exceptionHandling().
+                authenticationEntryPoint(new MyAuthenticationEntryPoint()).     // 登录判断
+                accessDeniedHandler(new MyAccessDeniedHandler());               // 无权访问
     }
 
     @Override
@@ -101,7 +128,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(provider);
 
     }
-
+//    Spring的决策管理器，其接口为AccessDecisionManager，抽象类为AbstractAccessDecisionManager
     @Bean
     protected AccessDecisionManager accessDecisionManager() {
         RoleVoter roleVoter = new RoleVoter();
@@ -129,14 +156,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return StringUtils.isNotBlank(request.getHeader("X-Requested-With"));
     }
 
-
+    /**
+     * 登陆成功后
+     */
     private class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request,
                                             HttpServletResponse response, Authentication authentication)
                 throws ServletException, IOException {
-
+            // 清除之前的
             clearAuthenticationAttributes(request);
             if (!isAjax(request)) {
                 super.onAuthenticationSuccess(request, response, authentication);
@@ -181,7 +210,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 response.setContentType("application/json");
                 response.getWriter().println(JSON.toJSONString(RestResponse.fail("您无权访问")));
             } else {
-                response.sendRedirect("/403");
+                System.out.println("--------redirect 403");
+//                response.sendRedirect("/403");
             }
 
         }

@@ -18,7 +18,7 @@ public class Resource implements Serializable {
 	/** 状态 是否禁用*/
 	private boolean disabled;
 
-	/** 地址 */
+	/** 地址 url通配符为两颗星，比如说 /user下的所有url，应该写成 /user/** 		*/
 	private String url;
 
 	/** 描述 */

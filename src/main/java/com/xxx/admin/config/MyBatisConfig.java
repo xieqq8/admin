@@ -24,7 +24,7 @@
 // * @Bean可理解为用spring的时候xml里面的<bean>标签
 // */
 //@Configuration    //该注解类似于spring配置文件
-//@MapperScan(basePackages="com.xxx.admin.domain.mapper")
+//@MapperScan(basePackages="com.xxx.admin.domain.mapper")   // 等同于repository
 //public class MyBatisConfig {
 //
 //    @Autowired
@@ -64,22 +64,22 @@
 //
 //
 //        //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
-////        sessionFactoryBean.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));//指定基包
-////        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));//指定xml文件位置
+//        sessionFactoryBean.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));//指定基包
+//        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));//指定xml文件位置
 //
 //
-//        // 手写配置
+//        // 加载全局的配置文件  这样可以打出mybatis sql 的 日志了
+//        sessionFactoryBean.setConfigLocation(
+//                new DefaultResourceLoader().getResource("classpath:config/mybatis-config.xml"));
+//
+//        // 手写配置 同上67
 //        // 配置类型别名
 ////        sessionFactoryBean.setTypeAliasesPackage("com.zsx.entity");
-//
 //        // 配置mapper的扫描，找到所有的mapper.xml映射文件
 ////        Resource[] resources = new PathMatchingResourcePatternResolver()
 ////                .getResources("classpath:mybatis/mapper/*.xml");
 ////        sessionFactoryBean.setMapperLocations(resources);
 //
-//        // 加载全局的配置文件  这样可以打出mybatis sql 的 日志了
-//        sessionFactoryBean.setConfigLocation(
-//                new DefaultResourceLoader().getResource("classpath:config/mybatis-config.xml"));
 //
 //        //添加插件  分页插件
 ////        sessionFactoryBean.setPlugins(new Interceptor[]{pageHelper()});

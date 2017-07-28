@@ -39,6 +39,23 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
 
     private AntPathMatcher pathMatcher=new AntPathMatcher();
 
+//    PathMatcher matcher = new AntPathMatcher();
+//    // 完全路径url方式路径匹配
+//    String requestPath="/user/list.htm?username=aaa&departmentid=2&pageNumber=1&pageSize=20";//请求路径
+//    String patternPath="/user/list.htm**";//路径匹配模式
+//
+//    // 不完整路径uri方式路径匹配
+//    // String requestPath="/app/pub/login.do";//请求路径
+//    // String patternPath="/**/login.do";//路径匹配模式
+//    // 模糊路径方式匹配
+//    // String requestPath="/app/pub/login.do";//请求路径
+//    // String patternPath="/**/*.do";//路径匹配模式
+//    // 包含模糊单字符路径匹配
+//    //String requestPath = "/app/pub/login.do";// 请求路径
+//    //String patternPath = "/**/lo?in.do";// 路径匹配模式
+//    boolean result = matcher.match(patternPath, requestPath);
+//    assertTrue(result);
+
 //    1、主要鉴权方法是调用父类中accessDecisionManager的decide值，所以我们需要自己实现一个accessDecisionManager
 //2、父类中存在抽象方法public abstract SecurityMetadataSource obtainSecurityMetadataSource();作用是获取URL及用户角色对应的关系。我们需要加入自己的实现。
 
@@ -82,7 +99,17 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
         if ("root".equalsIgnoreCase(currentUser)) {//不处理root账户的授权
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         }else{
+            // 核心的InterceptorStatusToken token = super.beforeInvocation(fi);
+            // 会调用我们定义的accessDecisionManager:decide(Object object)
+            // 和securityMetadataSource:getAttributes(Object object)方法。
+
             InterceptorStatusToken token = super.beforeInvocation(fi);
+
+            if (token != null ) {
+                System.out.println("--------------token is not null 设置个权限的时候 getAttributes 返回个数:" + token);
+            } else {
+                System.out.println("--------------token null");
+            }
             //只保护在resource表中配置的资源
             if(token==null && isSecurityUrl(((HttpServletRequest) request).getServletPath())){
                 throw new AccessDeniedException("only root can accsess");
@@ -97,13 +124,31 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
         }
     }
 
+    /**
+     * 判断URL
+     * @param url
+     * @return
+     */
     private boolean isSecurityUrl(String url){
         List<Resource> resources=resourceRepository.getEnableResources();
+//        System.out.println("--------------isSecurityUrl resources: " + resources.size());
+        resources.stream().forEach(role -> {
+            System.out.println("--------------isSecurityUrl resources url: " + role.getUrl());
+        });
+        System.out.println("--------------isSecurityUrl url: " + url);
+
         if(CollectionUtils.isEmpty(resources)){
+            System.out.println("--------------isSecurityUrl: CollectionUtils resources isEmpty");
             return false;
         }
-        return ! resources.stream().filter(item->pathMatcher.match(item.getUrl(),url)).collect(Collectors.toList()).isEmpty();
 
+        // Java8中使用filter()过滤列表，使用collect将stream转化为list http://blog.csdn.net/huludan/article/details/54316387
+        boolean bret = !resources.stream()                             // convert list to stream
+                .filter(item->pathMatcher.match(item.getUrl(),url))     // filter the item which equals to "url"
+                .collect(Collectors.toList())                           // collect the output and convert streams to a list
+                .isEmpty();
+        System.out.println("--------------isSecurityUrl true throw out:" + bret);
+        return bret;
     }
 
     @Override
