@@ -57,9 +57,10 @@ spring:
       cache: false
 
 mybatis:
-  mapperLocations: classpath:mapping/*.xml
   typeAliasesPackage: com.xxx.admin.domain.modle
+  mapperLocations: classpath:mapping/*.xml
   configLocation: classpath:config/mybatis-config.xml   #加载全局的配置文件  这样可以打出mybatis sql 的 日志了
+#  check-config-location: true  检查配置文件是否存在
 
 blog:
   host: http://localhost:8686
