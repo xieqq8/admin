@@ -211,7 +211,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 response.getWriter().println(JSON.toJSONString(RestResponse.fail("您无权访问")));
             } else {
                 System.out.println("--------redirect 403");
-//                response.sendRedirect("/403");
+                response.sendRedirect("/403");
             }
 
         }
