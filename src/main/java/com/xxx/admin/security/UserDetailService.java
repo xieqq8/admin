@@ -43,7 +43,19 @@ public class UserDetailService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("no user");
         }
-        SecurityUser userDetails = new SecurityUser(user.getId(), username, user.getPassword(), !user.isDisabled(), true, true, true, grantedAuthorities(user.getId()), user.getSalt(), user.getEmail());
+
+
+
+        SecurityUser userDetails = new SecurityUser(user.getId(),
+                username,
+                user.getPassword(),
+                !user.isDisabled(),
+                true,
+                true,
+                true,
+                grantedAuthorities(user.getId()),
+                user.getSalt(),
+                user.getEmail());
         return userDetails;
     }
 
@@ -55,6 +67,7 @@ public class UserDetailService implements UserDetailsService {
         Collection<GrantedAuthority> authorities=new HashSet<>();
         //忽略已经禁用的角色
         resources.stream().filter(role -> !role.isDisabled()).forEach((resource -> {
+            //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行权限验证时会使用GrantedAuthority 对象。
             authorities.add(new SimpleGrantedAuthority(resource.getName()));
         }));
         return authorities;

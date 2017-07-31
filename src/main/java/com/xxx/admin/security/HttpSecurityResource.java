@@ -45,25 +45,39 @@ public class HttpSecurityResource implements FilterInvocationSecurityMetadataSou
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         Collection<ConfigAttribute> attributes=new HashSet<>();
         FilterInvocation invocation=(FilterInvocation)object;//对于http资源来说，object是FilterInvocation
-        List<Role> roles=roleRepository.list();
+//        List<Role> roles=roleRepository.list();  // 用当前用户的角色 , 不能取所有的
+        List<Role> roles=roleRepository.getRoles(SecurityUtil.getUid());  // 用当前用户的角色 , 不能取所有的
+
         if(CollectionUtils.isEmpty(roles)){
             return new HashSet<>();
         }
         String requestUrl=invocation.getRequestUrl();
+
+        System.out.println("--------------requestUrl =" + requestUrl); // 请求路径
+
         roles.stream().forEach(role -> {
             List<Resource> resources=resourceRepository.listByRole(role.getId());
             if(CollectionUtils.isEmpty(resources)){
-                return;
+                return;  // foreach()处理集合时不能使用break和continue这两个方法 return起到的作用和continue是相同的
             }
             resources.stream().filter(resource -> !resource.isDisabled()).forEach(resource -> {
+
+                System.out.println("--------------resource url match:" + resource.getUrl());
+
                 if(pathMatcher.match(resource.getUrl(),requestUrl)) {
+
+                    // 角色里有这个访问路径的权限 attributes 就会 +1
                     attributes.add(new SecurityConfig(role.getName()));
+
+                    System.out.println("--------------attributes add:" + role.getName());
+
                     return;
                 }
             });
 
         });
-        // 这个 = 0 时会访问不了
+
+        // 这个 = 0 时               InterceptorStatusToken token = super.beforeInvocation(fi); 取不到token
         System.out.println("--------------getAttributes size is " + attributes.size());
         return attributes;
     }

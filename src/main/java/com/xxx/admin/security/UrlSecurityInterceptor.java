@@ -108,9 +108,9 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
             if (token != null ) {
                 System.out.println("--------------token is not null 设置个权限的时候 getAttributes 返回个数:" + token);
             } else {
-                System.out.println("--------------token null");
+                System.out.println("--------------token null 表示用户的角色对这个路径没有");
             }
-            //只保护在resource表中配置的资源
+            //只保护在resource表中配置的资源               实时改的token会用null
             if(token==null && isSecurityUrl(((HttpServletRequest) request).getServletPath())){
                 throw new AccessDeniedException("only root can accsess");
             }
@@ -125,7 +125,10 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
     }
 
     /**
-     * 判断URL
+     * 判断URL , 非然没有权限，但如果是安全的UR，也可以访问
+     *
+     * 资源管理	/resource/**	资源管理所有权限	禁用
+     *                     禁用 表示 这个不用判数权限
      * @param url
      * @return
      */
@@ -143,12 +146,17 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
         }
 
         // Java8中使用filter()过滤列表，使用collect将stream转化为list http://blog.csdn.net/huludan/article/details/54316387
+
+        // 这里多写一个 ! 是为了判断 资源禁用， 不需要经过权限认证就可以访问  相当于没有把该资源加入权限认证，只要配了菜单就可以访问
+        //
         boolean bret = !resources.stream()                             // convert list to stream
                 .filter(item->pathMatcher.match(item.getUrl(),url))     // filter the item which equals to "url"
                 .collect(Collectors.toList())                           // collect the output and convert streams to a list
                 .isEmpty();
         System.out.println("--------------isSecurityUrl true throw out:" + bret);
         return bret;
+
+        // 如何拦截所有以.do结尾的请求.     正确答案是/**/*.do  匹配规则: http://blog.csdn.net/haoyifen/article/details/52679576
     }
 
     @Override
