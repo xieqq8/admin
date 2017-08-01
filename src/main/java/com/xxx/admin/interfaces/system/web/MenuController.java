@@ -47,6 +47,13 @@ public class MenuController {
          menuService.delete(id);
     }
 
+    /**
+     * 添加、添加子菜单、编辑
+     * @param id
+     * @param parent
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String toform(@RequestParam(value = "id", required = false) String id, @RequestParam(value = "parent", required = false) boolean parent, Model model) {
         String url = null;
