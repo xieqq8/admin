@@ -62,10 +62,11 @@
                         <a href="@{/profile}" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="hidden-xs" th:text="${user.username}">root</span>
                         </a>
-                        <a href="@{/to-login}" > 退出</a>
 
                     </li>
-
+                    <li class="layui-nav-item exit">
+                        <a href="@{/to-login}"> 退出</a>
+                    </li>
                 </ul>
 
 
@@ -85,16 +86,112 @@
                 <li class="treeview" th:each="nav:${navs}">
                     <a href="#" th:href="@{${nav.url}">
                         <span th:text="${nav.label}">label</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                     </a>
                     <ul class="treeview-menu" th:each="second:${navs.children}">
-                        <li><a href="#" th:href="@{${second.url}"><i class="fa fa-circle-o"></i> <span
-                                th:text="${second.label}">label</span></a></li>
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label11</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label12</span>
+                            </a>
+                        </li>
                     </ul>
+
+
                 </li>
 
+
+                <li class="treeview" th:each="nav:${navs}">
+                    <a href="#" th:href="@{${nav.url}">
+                        <span th:text="${nav.label}">label2</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu" th:each="second:${navs.children}">
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label21</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label22</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li>
+            </ul>
+
+            <ul class="sidebar-menu">
+
+                <!--Multilevel-->
+                <li class="treeview active" th:each="nav:${navs}">
+                    <a href="#" th:href="@{${nav.url}">
+                        <span th:text="${nav.label}">label</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu" th:each="second:${navs.children}">
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label11</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label12</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li>
+
+
+                <li class="treeview" th:each="nav:${navs}">
+                    <a href="#" th:href="@{${nav.url}">
+                        <span th:text="${nav.label}">label2</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu" th:each="second:${navs.children}">
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label21</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" th:href="@{${second.url}">
+                                <i class="fa fa-circle-o"></i>
+                                <span th:text="${second.label}">label22</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->

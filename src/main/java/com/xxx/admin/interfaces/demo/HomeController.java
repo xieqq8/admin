@@ -1,4 +1,4 @@
-package com.xxx.admin.demo;
+package com.xxx.admin.interfaces.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

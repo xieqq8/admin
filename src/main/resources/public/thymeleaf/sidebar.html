@@ -10,12 +10,16 @@
                 <a th:href="@{${nav.url}?:'#'}">
                     <span th:text="${nav.label}">labela</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
-                <ul class="treeview-menu" th:each="second:${nav.childNodes}">
-                    <li th:name="${second.id}" th:data="${currentMenu}" th:class="(${second.id}==${currentMenu})?'active':''"><a href="#" th:href="@{${second.url}}"><i class="fa fa-circle-o"></i> <span
-                            th:text="${second.label}">labelb</span></a></li>
+                <ul class="treeview-menu" >
+                    <li th:each="second:${nav.childNodes}" th:name="${second.id}" th:data="${currentMenu}" th:class="(${second.id}==${currentMenu})?'active':''">
+                        <a href="#" th:href="@{${second.url}}">
+                            <i class="fa fa-circle-o"></i>
+                            <span th:text="${second.label}">labelb</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
