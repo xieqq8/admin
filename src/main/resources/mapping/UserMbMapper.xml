@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.xxx.admin.domain.mapper.UserMbMapper">
+
+    <!--根据用户名查询数据-->
+    <select id="findByUserName" parameterType="String" resultType="com.xxx.admin.domain.modle.UserMb">
+        select * from user where username=#{username}
+    </select>
+
+    <update id="updateRoles" >
+
+        DELETE FROM user_role WHERE uid=#{uid,jdbcType=INTEGER};
+
+        INSERT user_role (uid,role_id) VALUES
+        <foreach collection="rids" item="item" index="index" separator=",">
+            (#{uid},#{item,jdbcType=VARCHAR})
+        </foreach>
+    </update>
+
+    <!--<insert id="insertCodeBatch" parameterType="java.util.List">-->
+        <!--<selectKey resultType="java.lang.Integer" keyProperty="id"-->
+                   <!--order="AFTER">-->
+            <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        <!--insert into redeem_code-->
+        <!--(bach_id, code, type, facevalue,create_user,create_time)-->
+        <!--values-->
+        <!--<foreach collection="list" item="reddemCode" index="index" separator=",">-->
+            <!--(-->
+            <!--#{reddemCode.batchId}, #{reddemCode.code},-->
+            <!--#{reddemCode.type},-->
+            <!--#{reddemCode.facevalue},-->
+            <!--#{reddemCode.createUser}, #{reddemCode.createTime}-->
+            <!--)-->
+        <!--</foreach>-->
+    <!--</insert>-->
+
+    <!--<select id="clear">-->
+    <!--DELETE from t_user where id=#{userid}-->
+    <!--</select>-->
+
+
+    <!--SELECT IFFULL(MAX(name),0) AS name FROM user WHERE id = #{id}-->
+
+    <!--<select id="insertUser2" parameterType="com.xxx.entity.User" resultType="Integer" >-->
+    <!--INSERT INTO t_user(username, address,sex) VALUES(#{arg0},#{arg1},#{arg2})-->
+    <!--</select>-->
+
+    <!--<insert id="insertAuthor" parameterType="domain.blog.Author" useGeneratedKeys="true"     keyProperty="id">-->
+    <!--insert into Author (username,password,email,bio)-->
+    <!--values (#{username},#{password},#{email},#{bio})-->
+    <!--</insert>-->
+</mapper>

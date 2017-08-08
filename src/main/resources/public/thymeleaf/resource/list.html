@@ -4,6 +4,8 @@
     <div th:replace="head"></div>
     <!-- DataTables -->
     <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+
     <title>xiexx-Admin 权限管理</title>
 </head>
 
@@ -16,7 +18,6 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -24,7 +25,10 @@
 
                     <div class="box">
                         <div class="box-header">
-                            <a th:href="@{/resource/form}" title="新增权限"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a th:href="@{/resource/form}" title="新增权限"><span class="glyphicon glyphicon-plus">新增权限</span></a>
+
+                            <a class="layui-btn  roleAdd_btn" > <span class="glyphicon glyphicon-plus"><i class="layui-icon larry-icon larry-xinzeng1"></i>新增权限</span></a>
+                            <!--th:href="@{/resource/form}"-->
                         </div>
 
                         <div class="box-body">
@@ -135,5 +139,24 @@
 </script>
 <script th:src="@{/js/ajax-setup.js}"></script>
 <script th:src="@{/js/list-page.js}"></script>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript">
+
+    layui.use(['form', 'laypage', 'layer'], function () {
+        //添加角色
+        $(".roleAdd_btn").click(function(){
+            var index = layui.layer.open({
+                title : "新增权限",
+                type : 2,
+                content : "@{/resource/form}",
+                area: ['650px', '265px'],
+                success : function(layero, index){
+
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

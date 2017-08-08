@@ -1,9 +1,9 @@
 package com.xxx.admin.security;
 
-import com.xxx.admin.domain.modle.User;
+import com.xxx.admin.domain.mapper.UserMbMapper;
 import com.xxx.admin.domain.modle.Role;
+import com.xxx.admin.domain.modle.UserMb;
 import com.xxx.admin.domain.repository.RoleRepository;
-import com.xxx.admin.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,7 +26,7 @@ import java.util.List;
 public class UserDetailService implements UserDetailsService {
 
     @Autowired
-    protected UserRepository userRepository;
+    protected UserMbMapper userRepository;
 
     @Autowired
     protected RoleRepository roleRepository;
@@ -39,7 +39,7 @@ public class UserDetailService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByUserName(username);
+        UserMb user=userRepository.findByUserName(username);
         if(user==null){
             throw new UsernameNotFoundException("no user");
         }

@@ -31,6 +31,6 @@ public interface SysLogMapper {
     List<com.xxx.admin.domain.modle.SysLog> list();
 
     // 清空
-    @Delete("DELETE FROM syslog")
+//    @Delete("DELETE FROM syslog")
     void clear();
 }
