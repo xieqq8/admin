@@ -109,12 +109,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 loginPage("/to-login").             // 登录页
                 defaultSuccessUrl("/").             // 登录成功页
                 successHandler(new AuthenticationSuccessHandler());
-        http.logout().
+
+//                .and()
+//                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+//        ;
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("to-login").
                 logoutSuccessHandler(new LogoutSuccessHandler());
 
         http.exceptionHandling().
                 authenticationEntryPoint(new MyAuthenticationEntryPoint()).     // 登录判断
                 accessDeniedHandler(new MyAccessDeniedHandler());               // 无权访问
+
+
+/**  https://github.com/ChinaSilence/any-spring-security/blob/master/security-login-no-db/src/main/java/com/spring4all/config/WebSecurityConfig.java
+ * 匹配 "/" 路径，不需要权限即可访问
+ * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限
+ * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"
+ * 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
+ * 默认启用 CSRF
+ */
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/user/**").hasRole("USER")
+//                .and()
+//                .formLogin().loginPage("/login").defaultSuccessUrl("/user")
+//                .and()
+//                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
     }
 
     @Override
@@ -173,12 +194,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
+    /**
+     * 注销成功
+     */
     private class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
         @Override
         public void onLogoutSuccess(HttpServletRequest request,
                                     HttpServletResponse response, Authentication authentication)
                 throws IOException, ServletException {
+
+//            clearAuthenticationAttributes(request);
+
             if (!isAjax(request)) {
                 super.onLogoutSuccess(request, response, authentication);
             }

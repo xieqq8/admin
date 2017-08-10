@@ -24,8 +24,10 @@
                     </a>
                 </li>
                 <li class="layui-nav-item exit">
-                    <a th:href="@{/to-login}" > 退出</a>
-
+                    <!--<a th:href="@{/logout}" > 退出</a>-->
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-danger" style="margin: 8px">退出登录</button>
+                    </form>
                     <!--<a id="logout"><i class="larry-icon larry-exit"></i><cite>退出</cite></a>-->
                 </li>
             </ul>
