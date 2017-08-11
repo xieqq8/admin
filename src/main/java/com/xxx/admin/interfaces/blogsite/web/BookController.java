@@ -3,13 +3,13 @@ package com.xxx.admin.interfaces.blogsite.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qiniu.http.Response;
+import com.xxx.toolbox.model.PageModel;
+import com.xxx.toolbox.model.RestResponse;
+import com.xxx.toolbox.qiniu.QiNiuApi;
 import org.apache.commons.lang3.StringUtils;
 import com.xxx.admin.config.ApplicationConfig;
 import com.xxx.admin.infrastructure.RequestMapToJsonUtil;
 import com.xxx.admin.interfaces.blogsite.BlogSiteRestTemplate;
-import org.bumishi.toolbox.model.PageModel;
-import org.bumishi.toolbox.model.RestResponse;
-import org.bumishi.toolbox.qiniu.QiNiuApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     @ResponseBody
-    public RestResponse create(HttpServletRequest request,@RequestParam("image") MultipartFile file) {
+    public RestResponse create(HttpServletRequest request, @RequestParam("image") MultipartFile file) {
         RestResponse uploadResponse=upload(file);
         if(!uploadResponse.isSuccess()) {
             return uploadResponse;

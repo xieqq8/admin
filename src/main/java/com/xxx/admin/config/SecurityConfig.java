@@ -2,9 +2,9 @@ package com.xxx.admin.config;
 
 import com.alibaba.fastjson.JSON;
 import com.xxx.admin.security.UserDetailService;
+import com.xxx.toolbox.model.RestResponse;
 import org.apache.commons.lang3.StringUtils;
 import com.xxx.admin.security.UrlSecurityInterceptor;
-import org.bumishi.toolbox.model.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -121,7 +121,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 accessDeniedHandler(new MyAccessDeniedHandler());               // 无权访问
 
 
-/**  https://github.com/ChinaSilence/any-spring-security/blob/master/security-login-no-db/src/main/java/com/spring4all/config/WebSecurityConfig.java
+/**
+ * http://blog.csdn.net/kangguowei/article/details/54342729 Spring Security——退出登录logout
+ *  https://github.com/ChinaSilence/any-spring-security/blob/master/security-login-no-db/src/main/java/com/spring4all/config/WebSecurityConfig.java
  * 匹配 "/" 路径，不需要权限即可访问
  * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限
  * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"

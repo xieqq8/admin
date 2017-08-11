@@ -1,6 +1,6 @@
 package com.xxx.admin.config;
 
-import org.bumishi.toolbox.qiniu.QiNiuApi;
+import com.xxx.toolbox.qiniu.QiNiuApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

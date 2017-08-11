@@ -166,11 +166,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.bumishi</groupId>
-			<artifactId> bumishi-toolbox</artifactId>
+			<groupId>com.xxx</groupId>
+			<artifactId> xtoolbox</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/src/main/lib/bumishi-toolbox-1.0.jar</systemPath>
+			<systemPath>${basedir}/src/main/lib/xtoolbox.jar</systemPath>
 		</dependency>
 
 
