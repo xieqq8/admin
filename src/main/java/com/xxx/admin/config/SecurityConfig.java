@@ -34,12 +34,13 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.*;
 
 /**
  * @author xiexx
@@ -113,7 +114,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 //        ;
-        http.logout().logoutUrl("/logout").logoutSuccessUrl("to-login").
+//        Servlet中，"/"代表Web应用的跟目录。和物理路径的相对表示。例如："./" 代表当前目录,
+
+//        前端用的是jsp吗，如果是在路径前加${pageContext.request.contextPath}，如${pageContext.request.contextPath}/setting/style.css
+
+//        http://www.cnblogs.com/blogonfly/p/3958946.html?utm_source=tuicool  Spring读取配置文件，地址问题，绝对路径，相对路径
+//        HttpServletRequest req = (HttpServletRequest) request
+//        getContextPath();
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("./to-login").
                 logoutSuccessHandler(new LogoutSuccessHandler());
 
         http.exceptionHandling().
@@ -225,7 +233,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 response.setContentType("application/json");
                 response.getWriter().println(JSON.toJSONString(RestResponse.fail("请登录")));
             } else {
-                response.sendRedirect("/to-login");
+                response.sendRedirect("./to-login");
             }
 
         }
@@ -240,7 +248,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 response.getWriter().println(JSON.toJSONString(RestResponse.fail("您无权访问")));
             } else {
                 System.out.println("--------redirect 403");
-                response.sendRedirect("/403");
+                response.sendRedirect("./403");
             }
 
         }

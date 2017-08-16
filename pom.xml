@@ -68,7 +68,6 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 			<!--provided的意思，就是说这个jar包，在这个项目可能的运行环境里，都会提 供了的，所以就不用打包到war包里面了-->
-			<!---->
 		</dependency>
 
 		<dependency>
