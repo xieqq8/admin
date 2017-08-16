@@ -17,6 +17,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +29,7 @@ import java.util.Map;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @MapperScan(basePackages="com.xxx.admin.domain.mapper")   // MyBatisConfig.java
 @EnableAdminServer
-public class AdminApplication {
+public class AdminApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args){
 		SpringApplication.run(AdminApplication.class, args);
@@ -41,5 +43,15 @@ public class AdminApplication {
 //		application.setWebEnvironment(true);
 //		application.run(args);
 	}
+
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(AdminApplication.class);
+	}
+
+//	public static void main(String[] args) throws Exception {
+//		SpringApplication.run(AdminApplication.class, args);
+//	}
 }
 

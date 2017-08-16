@@ -1,8 +1,8 @@
-server:
-  port: 10000
-  compression:
-    enabled: true
-  connection-timeout: 3000
+#server:
+#  port: 10000
+#  compression:
+#    enabled: true
+#  connection-timeout: 3000
 
 debug: false
 
@@ -49,9 +49,9 @@ spring:
  #spring-boot-admin config
   boot:
     admin:
-    #用于将当前应用注册到Spring Boot Admin
-      url: http://localhost:${server.port}${spring.boot.admin.context-path}
-      context-path: /admin
+#    #用于将当前应用注册到Spring Boot Admin
+#      url: http://localhost:${server.port}${spring.boot.admin.context-path}
+      context-path: /admin  #spring boot admin server作为普通工程的时候，无法访问static文件夹下的静态资源
   thymeleaf:
       prefix: classpath:/public/thymeleaf/
       cache: false

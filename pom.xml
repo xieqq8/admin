@@ -6,7 +6,7 @@
 	<groupId>com.xxx</groupId>
 	<artifactId>admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>admin</name>
 	<description>管理后台</description>
@@ -36,6 +36,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.9.RELEASE</version>
 			<!--<version>5.0.0.M5</version>-->
 		</dependency>
 
@@ -52,6 +53,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 移除嵌入式tomcat插件 -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--因为本地启动还是需要使用到tomcat,因此还需要加入romcat的引用-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+			<!--provided的意思，就是说这个jar包，在这个项目可能的运行环境里，都会提 供了的，所以就不用打包到war包里面了-->
+			<!---->
 		</dependency>
 
 		<dependency>
@@ -64,7 +81,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 
 		<!--fastjson-->
 		<dependency>
@@ -97,7 +113,7 @@
 		<dependency>
 			<groupId>com.qiniu</groupId>
 			<artifactId>qiniu-java-sdk</artifactId>
-			<version>[7.2.0, 7.2.99]</version>
+			<version>7.2.7</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server -->
@@ -130,7 +146,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<version>1.5.4.RELEASE</version>
-			<optional>true</optional>
+			<!--<optional>true</optional>-->
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast -->
 		<dependency>
@@ -169,8 +185,9 @@
 			<groupId>com.xxx</groupId>
 			<artifactId> xtoolbox</artifactId>
 			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/lib/xtoolbox.jar</systemPath>
+			<scope>system</scope>  <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
+			<!--<systemPath>lib/xtoolbox.jar</systemPath>-->
+			<systemPath>${basedir}/lib/xtoolbox.jar</systemPath>
 		</dependency>
 
 
@@ -183,10 +200,10 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>org.springframework.boot</groupId>-->
+				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+			<!--</plugin>-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -231,6 +248,52 @@
 					<configurationFile>
 						src/main/resources/mybatis-generator.xml</configurationFile>
 				</configuration>
+			</plugin>
+
+			<!-- war 插件来定义打包以后的 war 包名称 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceExcludes>src/main/resources/**</warSourceExcludes>
+					<warName>admin</warName>
+				</configuration>
+			</plugin>
+
+			<!--把我要用到的jar包都放到里面去，打war包的时候输出-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-war-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<webResources>-->
+						<!--<resource>-->
+							<!--<directory>${project.basedir}/lib</directory>-->
+							<!--<targetPath>WEB-INF/lib</targetPath>-->
+							<!--<filtering>true</filtering>-->
+							<!--<includes>-->
+								<!--<include>**/*.jar</include>-->
+							<!--</includes> </resource>-->
+					<!--</webResources>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+			<!--pom文件中通过配置附加指定本地jar的路径即可完成maven打包功能-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+							<includeScope>system</includeScope>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
