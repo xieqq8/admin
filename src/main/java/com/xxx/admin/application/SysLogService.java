@@ -2,6 +2,7 @@ package com.xxx.admin.application;
 
 import com.xxx.admin.domain.mapper.SysLogMapper;
 import com.xxx.admin.domain.modle.SysLog;
+import com.xxx.admin.domain.repository.SysLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,11 +16,11 @@ import java.util.List;
 @Service
 public class SysLogService {
 
-//    @Autowired
-//    protected SysLogRepository sysLogRepository;
-
     @Autowired
-    protected SysLogMapper sysLogRepository;
+    protected SysLogRepository sysLogRepository;
+
+//    @Autowired
+//    protected SysLogMapper sysLogRepository;
 
     public void create(SysLog sysLog){
         sysLogRepository.add(sysLog);
