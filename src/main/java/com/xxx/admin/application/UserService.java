@@ -1,8 +1,6 @@
 package com.xxx.admin.application;
 
-import com.xxx.admin.domain.mapper.UserMbMapper;
 import com.xxx.admin.domain.modle.User;
-import com.xxx.admin.domain.modle.UserMb;
 import com.xxx.admin.domain.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;

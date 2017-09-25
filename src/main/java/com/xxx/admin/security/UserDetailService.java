@@ -1,9 +1,7 @@
 package com.xxx.admin.security;
 
-import com.xxx.admin.domain.mapper.UserMbMapper;
 import com.xxx.admin.domain.modle.Role;
 import com.xxx.admin.domain.modle.User;
-import com.xxx.admin.domain.modle.UserMb;
 import com.xxx.admin.domain.repository.RoleRepository;
 import com.xxx.admin.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -16,11 +16,11 @@ import java.util.List;
 @Service
 public class SysLogService {
 
-    @Autowired
-    protected SysLogRepository sysLogRepository;
-
 //    @Autowired
-//    protected SysLogMapper sysLogRepository;
+//    protected SysLogRepository sysLogRepository;
+
+    @Autowired
+    protected SysLogMapper sysLogRepository;
 
     public void create(SysLog sysLog){
         sysLogRepository.add(sysLog);
