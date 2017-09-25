@@ -17,34 +17,34 @@ import java.util.List;
  */
 public class UserAssembler {
 
-    public static User commondToDomain(UserCommond commond) {
-        User user=new User();
+    public static UserMb commondToDomain(UserCommond commond) {
+        UserMb user=new UserMb();
         BeanUtil.copeProperties(commond,user);
         return user;
     }
 
-    public static User commondToDomain(String uid, UserCommond commond) {
-        User user = new User();
+    public static UserMb commondToDomain(String uid, UserCommond commond) {
+        UserMb user = new UserMb();
         BeanUtil.copeProperties(commond, user);
         user.setId(uid);
         return user;
     }
 
-    public static User profileToDomain(String uid, ProfileCommand commond) {
-        User user = new User();
+    public static UserMb profileToDomain(String uid, ProfileCommand commond) {
+        UserMb user = new UserMb();
         BeanUtil.copeProperties(commond, user);
         user.setId(uid);
         return user;
     }
 
 
-    public static UserDto domainToDto(User user){
+    public static UserDto domainToDto(UserMb user){
         UserDto dto=new UserDto();
-       BeanUtil.copeProperties(user,dto);
+        BeanUtil.copeProperties(user,dto);
         return dto;
     }
 
-    public static List<UserDto> domainToDto(List<User> user){
+    public static List<UserDto> domainToDto(List<UserMb> user){
        if(CollectionUtils.isEmpty(user)){
            return null;
        }
