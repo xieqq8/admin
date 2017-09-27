@@ -1,9 +1,13 @@
 package com.xxx.admin;
-//
+
+//import de.codecentric.boot.admin.config.EnableAdminServer;
 //import org.springframework.boot.SpringApplication;
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 //
-//@SpringBootApplication
+////@SpringBootApplication
+//@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+//@EnableAdminServer   // 这个加上系统监控才有东西
 //public class AdminApplication {
 //
 //	public static void main(String[] args) {
